@@ -21,3 +21,14 @@ prunedAvg set perc
 
 prunedAvgPos set n = (sum prunedSet)/(fromIntegral (length prunedSet))
     where prunedSet = drop n $ reverse $ drop n set
+
+absolute_avg_dev set = (foldl (\x -> \y -> x+(abs (y-avg))) 0 set) / fromIntegral (length set)
+    where avg = arithAvg set
+
+vari::[Double] -> Double
+vari set = (foldl (\x -> \y -> x+((abs (y-avg))**2)) 0 set) / fromIntegral (length set)
+    where avg = arithAvg set
+
+stdev = sqrt.vari
+
+rl_avg_dev set = (absolute_avg_dev set) / (arithAvg set)
